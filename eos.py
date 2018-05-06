@@ -15,6 +15,7 @@ class pyEOS(object):
 	accountdata = { 'account_name':'eosio' }
 	code        = "/get_code"
 	tableRows   = "/get_table_rows"
+	otherstuff  = "blah"
 
 	# Varible to store returned JSON
 	jsonDetails = {}
@@ -54,3 +55,26 @@ class pyEOS(object):
 		
 		except:
 			print("Unexpected error:", sys.exc_info()[0])
+			sys.exit()
+
+	def chain_details(self):
+
+		self.hit_chain(self.chainInfo)
+
+	def get_account(self, account_name):
+
+		self.hit_chain(self.accountURL,"POST",acct_name=account_name)
+		
+		acct_name = self.jsonDetails['account_name']
+		key 	  = self.jsonDetails['permissions'][0]['required_auth']['keys'][0]['key']
+
+		return { 'account_name':acct_name, "key" : key}
+
+	def printJson(self):
+
+		print("")
+		
+		for item in self.jsonDetails:
+			print(item+" : "+str(self.jsonDetails[item]))
+
+		print("")
