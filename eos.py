@@ -16,13 +16,13 @@ class pyEOS(object):
 	code        = "/get_code"
 	tableRows   = "/get_table_rows"
 
-	# Varible to store returned JSON
+	# Variable to store returned JSON
 	jsonDetails = {}
 
 	# Session object for REST API calls
 	session     = requests.session()
 
-	def __init__( self, address = "127.0.0.1" , apiversion =1 ):
+	def __init__( self, address = "127.0.0.1" , apiversion = 1 ):
 		
 		# Check that the version number sent through is in our dictiona
 		try:
@@ -64,10 +64,17 @@ class pyEOS(object):
 
 		self.hit_chain(self.accountURL,"POST",acct_name=account_name)
 		
+		# Grab the accont name
 		acct_name = self.jsonDetails['account_name']
-		key 	  = self.jsonDetails['permissions'][0]['required_auth']['keys'][0]['key']
+		
+		# Check if a key exsits first, if not return None 
+		try:
+			key = self.jsonDetails['permissions'][0]['required_auth']['keys'][0]['key']
 
-		return { 'account_name':acct_name, "key" : key}
+		except:
+			key = "None"
+
+		return { 'account_name':acct_name, "key" : key }
 
 	def printJson(self):
 
