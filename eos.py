@@ -15,7 +15,6 @@ class pyEOS(object):
 	accountdata = { 'account_name':'eosio' }
 	code        = "/get_code"
 	tableRows   = "/get_table_rows"
-	otherstuff  = "blah"
 
 	# Varible to store returned JSON
 	jsonDetails = {}
